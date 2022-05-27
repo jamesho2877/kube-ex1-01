@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-ex1-01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: random-str-with-time
+  template:
+    metadata:
+      labels:
+        app: random-str-with-time
+    spec:
+      containers:
+        - name: random-str-with-time
+          image: jamesho287/kube-ex1-01:latest
