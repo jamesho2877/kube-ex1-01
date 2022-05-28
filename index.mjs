@@ -1,4 +1,4 @@
-const { randomUUID } = await import('node:crypto');
+const { randomUUID } = await import("node:crypto");
 
 const logAfter5s = () => {
   const time = new Date().toISOString();
