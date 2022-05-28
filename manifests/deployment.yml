@@ -6,12 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: random-str-with-time
+      app: log-output-app
   template:
     metadata:
       labels:
-        app: random-str-with-time
+        app: log-output-app
     spec:
       containers:
-        - name: random-str-with-time
+        - name: log-output-app
           image: jamesho287/kube-ex1-01:v0.1

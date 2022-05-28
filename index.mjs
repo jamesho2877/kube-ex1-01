@@ -1,9 +1,19 @@
-const { randomUUID } = await import("node:crypto");
+import express from "express";
+import { getTimeAndHash } from "./src/functions.mjs";
 
-const logAfter5s = () => {
-  const time = new Date().toISOString();
-  console.log(`${time}: ${randomUUID()}`);
-  setTimeout(logAfter5s, 5000);
-};
+const PORT = process.env.PORT || 3400;
+const app = express();
+const router = express.Router();
 
-logAfter5s();
+router.get("/", (req, res) => {
+  const timeAndHash = getTimeAndHash();
+  res.send(timeAndHash);
+});
+
+app.use(router);
+
+app.listen(PORT, () => {
+  console.log(`Server started in port ${PORT}`);
+});
+
+// setTimeout(getTimeAndHash, 5000);
