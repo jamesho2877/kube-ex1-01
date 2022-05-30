@@ -1,19 +1,36 @@
+import path from "path";
 import express from "express";
-import { getTimeAndHash } from "./src/functions.mjs";
+import { readLogFile } from "./src/reader.mjs";
+import { writeLogFile } from "./src/writer.mjs";
 
-const PORT = process.env.PORT || 3400;
-const app = express();
-const router = express.Router();
+const {
+  PORT = 3400,
+  WRITER = "false",
+  PRODUCTION = "true",
+} = process.env;
 
-router.get("/", (req, res) => {
-  const timeAndHash = getTimeAndHash();
-  res.send(timeAndHash);
-});
+const filePath = PRODUCTION === "false" ? path.resolve(process.cwd(), "log.txt") : "/usr/src/app/files/log.txt";
+console.log("filePath", filePath);
+console.log("param", { WRITER, PRODUCTION });
 
-app.use(router);
+if (WRITER === "true") {
+  const scheduleDataLogging = () => {
+    writeLogFile(filePath);
+    setTimeout(scheduleDataLogging, 5000);
+  };
 
-app.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
-});
-
-// setTimeout(getTimeAndHash, 5000);
+  scheduleDataLogging();
+} else {
+  const app = express();
+  const router = express.Router();
+  
+  router.get("/", (req, res) => {
+    res.send(readLogFile(filePath));
+  });
+  
+  app.use(router);
+  
+  app.listen(PORT, () => {
+    console.log(`Server started in port ${PORT}`);
+  });
+}

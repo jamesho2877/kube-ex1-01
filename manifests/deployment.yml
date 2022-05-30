@@ -6,12 +6,33 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: log-output-app
+      app: log-app
   template:
     metadata:
       labels:
-        app: log-output-app
+        app: log-app
     spec:
+      volumes:
+        - name: shared-bucket
+          emptyDir: {}
       containers:
-        - name: log-output-app
-          image: jamesho287/kube-ex1-01:v0.1
+        - name: log-writer-app
+          image: jamesho287/kube-ex1-01:v0.3
+          env:
+          - name: PRODUCTION
+            value: "true"
+          - name: WRITER
+            value: "true"
+          volumeMounts:
+          - name: shared-bucket
+            mountPath: /usr/src/app/files
+        - name: log-reader-app
+          image: jamesho287/kube-ex1-01:v0.3
+          env:
+          - name: PRODUCTION
+            value: "true"
+          - name: WRITER
+            value: "false"
+          volumeMounts:
+          - name: shared-bucket
+            mountPath: /usr/src/app/files
