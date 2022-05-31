@@ -25,7 +25,8 @@ if (WRITER === "true") {
   const router = express.Router();
   
   router.get("/", (req, res) => {
-    res.send(readLogFile(filePath));
+    const fileContent = readLogFile(filePath).replace("\n", ".<br/> Ping / Pongs: ");
+    res.send(fileContent);
   });
   
   app.use(router);

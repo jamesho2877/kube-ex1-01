@@ -14,10 +14,12 @@ spec:
     spec:
       volumes:
         - name: shared-bucket
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: log-app-pv-claim
       containers:
         - name: log-writer-app
           image: jamesho287/kube-ex1-01:v0.3
+          imagePullPolicy: IfNotPresent
           env:
           - name: PRODUCTION
             value: "true"
@@ -28,6 +30,7 @@ spec:
             mountPath: /usr/src/app/files
         - name: log-reader-app
           image: jamesho287/kube-ex1-01:v0.3
+          imagePullPolicy: IfNotPresent
           env:
           - name: PRODUCTION
             value: "true"
