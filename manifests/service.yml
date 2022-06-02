@@ -7,6 +7,6 @@ spec:
   selector:
     app: log-app
   ports:
-    - port: 8083
+    - port: 8004
       protocol: TCP
       targetPort: 3400
