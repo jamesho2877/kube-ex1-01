@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-ex1-01
+  namespace: log-app
 spec:
   replicas: 1
   selector:

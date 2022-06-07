@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: log-app-svc
+  namespace: log-app
 spec:
   type: ClusterIP
   selector:
