@@ -19,24 +19,34 @@ spec:
             claimName: log-app-pv-claim
       containers:
         - name: log-writer-app
-          image: jamesho287/kube-ex1-01:v0.3
+          image: jamesho287/kube-ex1-01:v0.4
           imagePullPolicy: IfNotPresent
           env:
-          - name: PRODUCTION
-            value: "true"
-          - name: WRITER
-            value: "true"
+            - name: PRODUCTION
+              value: "true"
+            - name: WRITER
+              value: "true"
           volumeMounts:
-          - name: shared-bucket
-            mountPath: /usr/src/app/files
+            - name: shared-bucket
+              mountPath: /usr/src/app/files
         - name: log-reader-app
-          image: jamesho287/kube-ex1-01:v0.3
+          image: jamesho287/kube-ex1-01:v0.4
           imagePullPolicy: IfNotPresent
           env:
-          - name: PRODUCTION
-            value: "true"
-          - name: WRITER
-            value: "false"
+            - name: PRODUCTION
+              value: "true"
+            - name: WRITER
+              value: "false"
+            # Import individual env variable
+            - name: GREETING_WORD
+              valueFrom:
+                configMapKeyRef:
+                  name: log-app-config-1
+                  key: greeting.word
+          # Import env variable in batch
+          envFrom:
+            - configMapRef:
+                name: log-app-config-2
           volumeMounts:
-          - name: shared-bucket
-            mountPath: /usr/src/app/files
+            - name: shared-bucket
+              mountPath: /usr/src/app/files

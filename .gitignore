@@ -1,3 +1,6 @@
 node_modules
-package-lock.json
 log.txt
+package-lock.json
+
+key.txt
+manifests/secret.yml

@@ -10,7 +10,14 @@ function writeDataToFile(filePath, data, type) {
   try {
     let newContentArr = [];
     readFile(filePath, "utf8", (err, fileContent) => {
-      if (err) throw err;
+      if (err) {
+        console.error(err);
+        writeFile(filePath, "", (err) => {
+          if (err) throw err;
+          console.log("Init empty file!");
+        });
+        return;
+      }
       
       const fileContentArr = fileContent.split("\n");
 

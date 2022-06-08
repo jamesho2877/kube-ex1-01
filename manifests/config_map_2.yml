@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-app-config-2
+  namespace: log-app
+data:
+  FIRST_NAME: Scarlett
+  LAST_NAME: Johansson

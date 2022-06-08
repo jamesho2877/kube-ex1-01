@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-app-config-1
+  namespace: log-app
+data:
+  greeting.word: Hello
