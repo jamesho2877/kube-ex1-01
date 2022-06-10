@@ -1,7 +1,8 @@
 import path from "path";
 import express from "express";
-import { readLogFile } from "./src/reader.mjs";
-import { writeLogFile } from "./src/writer.mjs";
+// import { readLogFile } from "./src/reader.mjs";
+// import { writeLogFile } from "./src/writer.mjs";
+import Database from "./src/database.mjs";
 
 const {
   PORT = 3400,
@@ -12,14 +13,16 @@ const {
   LAST_NAME,
 } = process.env;
 
+const database = new Database();
 const filePath = PRODUCTION === "false" ? path.resolve(process.cwd(), "log.txt") : "/usr/src/app/files/log.txt";
 
 console.log("filePath", filePath);
 console.log("param", { WRITER, PRODUCTION });
 
 if (WRITER === "true") {
-  const scheduleDataLogging = () => {
-    writeLogFile(filePath);
+  const scheduleDataLogging = async () => {
+    // writeLogFile(filePath);
+    await database.writeCounterContent();
     setTimeout(scheduleDataLogging, 5000);
   };
 
@@ -28,9 +31,11 @@ if (WRITER === "true") {
   const app = express();
   const router = express.Router();
   
-  router.get("/", (req, res) => {
+  router.get("/", async (req, res) => {
     const greeting = `${GREETING_WORD}, ${FIRST_NAME} ${LAST_NAME}!<br/>`
-    const fileContent = readLogFile(filePath).replace("\n", ".<br/> Ping / Pongs: ");
+    // const fileContent = readLogFile(filePath).replace("\n", ".<br/> Ping / Pongs: ");
+    const rawContent = await database.readCounterContent();
+    const fileContent = rawContent.replace("\n", ".<br/> Ping / Pongs: ");
     res.send(greeting + fileContent);
   });
   

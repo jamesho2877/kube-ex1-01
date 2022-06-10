@@ -6,5 +6,5 @@ package-lock.json
 README.md
 log.txt
 
-key.txt
-manifests/secret.yml
+**/key.txt
+**/secret.yml
