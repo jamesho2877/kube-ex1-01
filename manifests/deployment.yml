@@ -13,13 +13,9 @@ spec:
       labels:
         app: log-app
     spec:
-      volumes:
-        - name: shared-bucket
-          persistentVolumeClaim:
-            claimName: log-app-pv-claim
       containers:
         - name: log-writer-app
-          image: jamesho287/kube-ex1-01:v0.5
+          image: jamesho287/kube-ex1-01:v0.6
           imagePullPolicy: IfNotPresent
           env:
             - name: PRODUCTION
@@ -30,14 +26,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          volumeMounts:
-            - name: shared-bucket
-              mountPath: /usr/src/app/files
           envFrom:
           - secretRef:
               name: postgres-secret
         - name: log-reader-app
-          image: jamesho287/kube-ex1-01:v0.5
+          image: jamesho287/kube-ex1-01:v0.6
           imagePullPolicy: IfNotPresent
           env:
             - name: PRODUCTION
@@ -60,6 +53,3 @@ spec:
               name: log-app-config-2
           - secretRef:
               name: postgres-secret
-          volumeMounts:
-            - name: shared-bucket
-              mountPath: /usr/src/app/files

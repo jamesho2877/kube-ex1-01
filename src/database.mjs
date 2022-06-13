@@ -27,23 +27,27 @@ export default class Database {
   }
 
   async readCounterContent() {
-    let data;
+    let data = {};
+
     try {
-      const rs = await this.#pool.query("SELECT * FROM counter");
-      data = rs.rows[0]?.content || "";
+      const rs = await this.#pool.query("SELECT * FROM counter WHERE id = 1");
+      data = rs.rows?.[0] || {};
     } catch (err) {
       console.error(err);
     } finally {
+      console.log("data", data);
       return data;
     }
   }
   
   async writeCounterContent() {
     const newData = getTimeAndHash();
+
     const rs = await this.#pool.query({
-      text: "INSERT INTO counter VALUES (1,$1) ON CONFLICT (id) DO UPDATE SET content = $1 RETURNING *",
+      text: "INSERT INTO counter VALUES (1,$1,DEFAULT) ON CONFLICT (id) DO UPDATE SET hashstr = $1 RETURNING *",
       values: [newData],
     });
-    return rs.rows[0]?.content || "";
+
+    return rs.rows?.[0]?.hashstr || "";
   }
 }

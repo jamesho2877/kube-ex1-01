@@ -12,3 +12,4 @@ This project includes solutions for the following exercises:
 * Exercise 2.03: Keep them separated
 * Exercise 2.06: Documentation and ConfigMaps
 * Exercise 2.07: Stateful applications
+* Exercise 2.07: Stateful applications (update)

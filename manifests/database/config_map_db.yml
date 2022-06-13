@@ -7,5 +7,6 @@ data:
   init.sql: |-
     CREATE TABLE IF NOT EXISTS counter (
       id SERIAL PRIMARY KEY,
-      content TEXT NOT NULL DEFAULT ''
+      hashstr TEXT NOT NULL DEFAULT '',
+      pingpong INTEGER NOT NULL DEFAULT 0
     )

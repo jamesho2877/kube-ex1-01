@@ -1,3 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: log-app-middleware
+  namespace: log-app
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /pingpong
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,11 +18,20 @@ metadata:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web
     ingress.kubernetes.io/ssl-redirect: "false"
+    ingress.kubernetes.io/cache-enable: "false"
+    traefik.ingress.kubernetes.io/router.middlewares: log-app-log-app-middleware@kubernetescrd
 spec:
   rules:
   - host: localhost
     http:
       paths:
+        - path: /pingpong
+          pathType: Prefix
+          backend:
+            service:
+              name: ping-pong-svc
+              port:
+                number: 8080
         - path: /
           pathType: Prefix
           backend:
