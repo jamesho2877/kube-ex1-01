@@ -14,3 +14,4 @@ This project includes solutions for the following exercises:
 * Exercise 2.07: Stateful applications
 * Exercise 2.07: Stateful applications (update)
 * Exercise 3.01: Pingpong GKE
+* Exercise 3.02: Back to Ingress

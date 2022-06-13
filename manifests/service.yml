@@ -4,10 +4,10 @@ metadata:
   name: log-app-svc
   namespace: log-app
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: log-app
   ports:
-    - port: 8080
+    - port: 80
       protocol: TCP
       targetPort: 3400
