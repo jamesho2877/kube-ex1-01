@@ -17,6 +17,10 @@ spec:
         - name: log-writer-app
           image: jamesho287/kube-ex1-01:v0.6
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
           env:
             - name: PRODUCTION
               value: "true"
@@ -32,6 +36,10 @@ spec:
         - name: log-reader-app
           image: jamesho287/kube-ex1-01:v0.6
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
           env:
             - name: PRODUCTION
               value: "true"

@@ -1,0 +1,16 @@
+resources:
+- manifests/namespace.yml
+
+- manifests/database/config_map_db.yml
+- manifests/database/secret.yml
+- manifests/database/statefulset.yml
+- manifests/database/service.yml
+
+- manifests/config_map_1.yml
+- manifests/config_map_2.yml
+- manifests/deployment.yml
+- manifests/service.yml
+
+- manifests/ingress.yml
+
+- manifests/horizontal_pod_autoscaler.yml
