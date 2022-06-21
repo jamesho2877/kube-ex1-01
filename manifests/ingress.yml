@@ -24,17 +24,17 @@ spec:
   rules:
   - http:
       paths:
-        - path: /pingpong
-          pathType: Prefix
-          backend:
-            service:
-              name: ping-pong-svc
-              port:
-                number: 80
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: log-app-svc
+              name: kube-ex1-01
+              port:
+                number: 80
+        - path: /pingpong
+          pathType: Prefix
+          backend:
+            service:
+              name: kube-ex1-09
               port:
                 number: 80

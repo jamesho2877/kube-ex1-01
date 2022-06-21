@@ -24,6 +24,12 @@ if (WRITER === "true") {
 } else {
   const app = express();
   const router = express.Router();
+
+  router.get("/healthz", async (req, res) => {
+    const { err } = await database.testConnection();
+    console.log("healthz - err", err);
+    res.sendStatus(err ? 500 : 200);
+  });
   
   router.get("/", async (req, res) => {
     const greeting = `${GREETING_WORD}, ${FIRST_NAME} ${LAST_NAME}!<br/>`;

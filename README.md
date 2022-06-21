@@ -16,3 +16,4 @@ This project includes solutions for the following exercises:
 * Exercise 3.01: Pingpong GKE
 * Exercise 3.02: Back to Ingress
 * Exercise 3.09: Resource limits
+* Exercise 4.01: Readiness Probe
